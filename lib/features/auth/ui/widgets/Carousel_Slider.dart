@@ -10,7 +10,7 @@ class CarouselSliderWidget extends StatefulWidget {
 }
 
 class _CarouselSliderWidgetState extends State<CarouselSliderWidget> {
-  final ValueNotifier<int> _current_Slider = ValueNotifier(0);
+  final ValueNotifier<int> currentSlider = ValueNotifier(0);
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class _CarouselSliderWidgetState extends State<CarouselSliderWidget> {
                     height: 150.0,
                     viewportFraction: 1,
                     onPageChanged: (index, reason) {
-                      _current_Slider.value = index;
+                      currentSlider.value = index;
                     },
                   ),
                   items: [1, 2, 3, 4, 5].map((i) {
@@ -38,7 +38,7 @@ class _CarouselSliderWidgetState extends State<CarouselSliderWidget> {
                           width: MediaQuery.of(context).size.width,
                           margin: EdgeInsets.symmetric(horizontal: 5.0),
                           decoration: BoxDecoration(
-                            color: Colors.amber,
+                            color: AppColor.themeColor,
                             borderRadius: BorderRadius.circular(8),
                           ),
                           child: Text(
@@ -52,7 +52,7 @@ class _CarouselSliderWidgetState extends State<CarouselSliderWidget> {
                 ),
                 const SizedBox(height: 8),
                 ValueListenableBuilder(
-                  valueListenable: _current_Slider,
+                  valueListenable: currentSlider,
                   builder: (context, index, _) {
                     return Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -65,7 +65,7 @@ class _CarouselSliderWidgetState extends State<CarouselSliderWidget> {
                             decoration: BoxDecoration(
                               border: Border.all(color: Colors.grey, width: 2),
                               borderRadius: BorderRadius.circular(8),
-                              color: _current_Slider.value == i
+                              color: currentSlider.value == i
                                   ? AppColor.themeColor
                                   : null,
                             ),
