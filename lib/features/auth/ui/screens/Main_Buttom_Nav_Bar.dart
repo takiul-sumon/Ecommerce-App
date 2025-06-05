@@ -43,9 +43,66 @@ class _MainButtomNavBarState extends State<MainButtomNavBar> {
             ),
             SizedBox(height: 10),
             CarouselSliderWidget(),
+            SizedBox(height: 10),
+            CatagoriesSeeAll(
+              title: 'All Catagories',
+              onSeeAll: () {},
+              buttonText: 'See All',
+            ),
+            SizedBox(height: 10),
+            CatagoriesSeeAll(
+              title: 'Popular',
+              onSeeAll: () {},
+              buttonText: 'See All',
+            ),
+            SizedBox(height: 10),
+            CatagoriesSeeAll(
+              title: 'Special',
+              onSeeAll: () {},
+              buttonText: 'See All',
+            ),
+            SizedBox(height: 10),
+            CatagoriesSeeAll(
+              title: 'New',
+              onSeeAll: () {},
+              buttonText: 'See All',
+            ),
           ],
         ),
       ),
+    );
+  }
+}
+
+class CatagoriesSeeAll extends StatelessWidget {
+  const CatagoriesSeeAll({
+    super.key,
+    required this.title,
+    required this.onSeeAll,
+    required this.buttonText,
+  });
+  final String title;
+  final VoidCallback onSeeAll;
+  final String buttonText;
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          title,
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            color: Colors.black87,
+          ),
+        ),
+        TextButton(
+          onPressed: onSeeAll,
+          child: Text(buttonText),
+          style: ButtonStyle(),
+        ),
+      ],
     );
   }
 }
