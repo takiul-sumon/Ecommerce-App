@@ -1,4 +1,4 @@
-import 'package:ecommerce_app/features/auth/ui/screens/Main_Buttom_Nav_Bar.dart';
+import 'package:ecommerce_app/features/auth/ui/screens/sign_up_screen.dart';
 import 'package:ecommerce_app/features/auth/ui/widgets/app_logo.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
@@ -19,13 +19,13 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
+      body: SingleChildScrollView(
         child: Center(
           child: Form(
             key: _formKey,
             child: Column(
               children: [
-                Spacer(),
+                SizedBox(height: 60), // or any value
                 Applogo(),
                 SizedBox(height: 10),
                 Text(
@@ -82,7 +82,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: Text('Next', style: TextStyle(color: Colors.white)),
                   ),
                 ),
-                Spacer(),
+                SizedBox(height: 60), // or any value
               ],
             ),
           ),
@@ -92,14 +92,10 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   onTapLoginButton() {
-    Navigator.of(context).pushReplacement(
-      DialogRoute(
-        context: context,
-        builder: (context) {
-          return MainButtomNavBar();
-        },
-      ),
-    );
+    Navigator.of(
+      context,
+    ).pushReplacement(MaterialPageRoute(builder: (context) => SignUpScreen()));
+
     // if (_formKey.currentState!.validate()) {}
   }
 }

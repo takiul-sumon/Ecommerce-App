@@ -1,10 +1,10 @@
-import 'package:ecommerce_app/features/auth/ui/screens/login_screen.dart';
+import 'package:ecommerce_app/features/auth/ui/screens/main_buttom_nav_screen.dart';
 import 'package:ecommerce_app/features/auth/ui/widgets/app_logo.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
-  static final String name = '/';
+  static final String name = '/splash_screen';
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
@@ -13,14 +13,14 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    _moveToNextScreen();
     super.initState();
+    _moveToNextScreen();
   }
 
   Future<void> _moveToNextScreen() async {
     await Future.delayed(Duration(seconds: 2));
 
-    Navigator.of(context).pushReplacementNamed(LoginScreen.name);
+    Navigator.pushReplacementNamed(context, MainButtomNavScreen.name);
   }
 
   @override

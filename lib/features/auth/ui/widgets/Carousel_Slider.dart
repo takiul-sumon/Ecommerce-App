@@ -41,9 +41,11 @@ class _CarouselSliderWidgetState extends State<CarouselSliderWidget> {
                             color: AppColor.themeColor,
                             borderRadius: BorderRadius.circular(8),
                           ),
-                          child: Text(
-                            'text $i',
-                            style: TextStyle(fontSize: 16.0),
+                          child: Center(
+                            child: Text(
+                              'text $i',
+                              style: TextStyle(fontSize: 16.0),
+                            ),
                           ),
                         );
                       },

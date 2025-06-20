@@ -1,16 +1,20 @@
+import 'package:ecommerce_app/app/app_color.dart';
+import 'package:ecommerce_app/features/auth/ui/controller/main_bottom_nav_controller.dart';
 import 'package:ecommerce_app/features/auth/ui/widgets/Circular_App_Button.dart';
 import 'package:ecommerce_app/features/auth/ui/widgets/Carousel_Slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/instance_manager.dart';
 
-class MainButtomNavBar extends StatefulWidget {
-  const MainButtomNavBar({super.key});
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+  static final String name = '/home-screen';
 
   @override
-  State<MainButtomNavBar> createState() => _MainButtomNavBarState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _MainButtomNavBarState extends State<MainButtomNavBar> {
+class _HomeScreenState extends State<HomeScreen> {
   TextEditingController searchProductTEController = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -46,8 +50,26 @@ class _MainButtomNavBarState extends State<MainButtomNavBar> {
             SizedBox(height: 10),
             CatagoriesSeeAll(
               title: 'All Catagories',
-              onSeeAll: () {},
+              onSeeAll: () {
+                Get.find<MainBottomNavScreenController>().moveToCategory();
+              },
               buttonText: 'See All',
+            ),
+            SizedBox(
+              height: 140,
+              child: ListView.builder(
+                itemCount: 5,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 5),
+                    child: CatagoryWiseProduct(
+                      icon: Icons.computer,
+                      prodcutTitle: 'Electronics',
+                    ),
+                  );
+                },
+              ),
             ),
             SizedBox(height: 10),
             CatagoriesSeeAll(
@@ -70,6 +92,41 @@ class _MainButtomNavBarState extends State<MainButtomNavBar> {
           ],
         ),
       ),
+    );
+  }
+}
+
+class CatagoryWiseProduct extends StatelessWidget {
+  const CatagoryWiseProduct({
+    super.key,
+    required this.icon,
+    required this.prodcutTitle,
+  });
+  final IconData icon;
+  final String prodcutTitle;
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Container(
+          height: 70,
+          width: 70,
+          decoration: BoxDecoration(
+            color: AppColor.themeColor.withValues(alpha: .1),
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Icon(icon, size: 45, color: AppColor.themeColor),
+        ),
+        SizedBox(height: 5),
+        Text(
+          prodcutTitle,
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            color: AppColor.themeColor.withValues(alpha: .7),
+          ),
+        ),
+      ],
     );
   }
 }
@@ -99,8 +156,8 @@ class CatagoriesSeeAll extends StatelessWidget {
         ),
         TextButton(
           onPressed: onSeeAll,
-          child: Text(buttonText),
           style: ButtonStyle(),
+          child: Text(buttonText),
         ),
       ],
     );
