@@ -3,7 +3,6 @@ import 'package:ecommerce_app/app/app_theme.dart';
 import 'package:ecommerce_app/app/controller_binder.dart';
 import 'package:ecommerce_app/features/auth/ui/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_navigation/src/nav2/get_router_delegate.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 
 class CraftyBay extends StatefulWidget {

@@ -1,5 +1,5 @@
 import 'package:ecommerce_app/features/auth/ui/controller/main_bottom_nav_controller.dart';
-import 'package:ecommerce_app/features/auth/ui/screens/home_screen.dart';
+import 'package:ecommerce_app/features/home/ui/screans/home_screen.dart';
 import 'package:ecommerce_app/features/auth/ui/screens/product_catagory_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';

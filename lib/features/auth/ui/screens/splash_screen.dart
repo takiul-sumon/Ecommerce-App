@@ -1,4 +1,4 @@
-import 'package:ecommerce_app/features/auth/ui/screens/main_buttom_nav_screen.dart';
+import 'package:ecommerce_app/features/auth/ui/screens/login_screen.dart';
 import 'package:ecommerce_app/features/auth/ui/widgets/app_logo.dart';
 import 'package:flutter/material.dart';
 
@@ -20,7 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Future<void> _moveToNextScreen() async {
     await Future.delayed(Duration(seconds: 2));
 
-    Navigator.pushReplacementNamed(context, MainButtomNavScreen.name);
+    Navigator.pushReplacementNamed(context, LoginScreen.name);
   }
 
   @override
