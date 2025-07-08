@@ -13,6 +13,8 @@ class _IncDecButtonState extends State<IncDecButton> {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         buildIconButton(
           icon: Icons.remove,
@@ -23,7 +25,7 @@ class _IncDecButtonState extends State<IncDecButton> {
           },
         ),
         Padding(
-          padding: const EdgeInsets.all(3.0),
+          padding: const EdgeInsets.symmetric(horizontal: 3),
           child: Text(
             '$value',
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),

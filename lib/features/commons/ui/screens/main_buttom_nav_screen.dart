@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/features/Product/ui/screans/cart_screen.dart';
 import 'package:ecommerce_app/features/Wishlist/ui/wishlist_screen.dart';
 import 'package:ecommerce_app/features/commons/ui/controller/main_bottom_nav_controller.dart';
 import 'package:ecommerce_app/features/home/ui/screans/home_screen.dart';
@@ -17,7 +18,7 @@ class _MainButtomNavScreenState extends State<MainButtomNavScreen> {
   List<Widget> screens = [
     HomeScreen(),
     ProductCatagoryScreen(),
-    ProductCatagoryScreen(),
+    CartScreen(),
     WishListScreen(),
   ];
   @override
