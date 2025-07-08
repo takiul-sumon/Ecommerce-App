@@ -1,4 +1,4 @@
-import 'package:ecommerce_app/features/auth/ui/controller/main_bottom_nav_controller.dart';
+import 'package:ecommerce_app/features/commons/ui/controller/main_bottom_nav_controller.dart';
 import 'package:ecommerce_app/features/home/ui/screans/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/instance_manager.dart';

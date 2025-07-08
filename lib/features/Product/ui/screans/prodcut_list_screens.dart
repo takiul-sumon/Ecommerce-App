@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/features/home/ui/screans/home_screen.dart';
 import 'package:flutter/material.dart';
 
 class ProductListScreen extends StatefulWidget {
@@ -14,13 +15,17 @@ class _ProductListScreenState extends State<ProductListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text(widget.catagory)),
-      body: GridView.builder(
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3,
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8),
+        child: GridView.builder(
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 3,
+            mainAxisSpacing: 10,
+          ),
+          itemBuilder: (context, index) {
+            return FittedBox(child: ProductCard());
+          },
         ),
-        itemBuilder: (context, index) {
-          return Text('data');
-        },
       ),
     );
   }

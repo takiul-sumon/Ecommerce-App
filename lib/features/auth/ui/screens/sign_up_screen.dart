@@ -1,4 +1,4 @@
-import 'package:ecommerce_app/features/auth/ui/screens/main_buttom_nav_screen.dart';
+import 'package:ecommerce_app/features/commons/ui/screens/main_buttom_nav_screen.dart';
 import 'package:ecommerce_app/features/auth/ui/widgets/app_logo.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';

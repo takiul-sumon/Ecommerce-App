@@ -2,7 +2,9 @@ import 'dart:ui';
 
 import 'package:ecommerce_app/app/app_color.dart';
 import 'package:ecommerce_app/app/assets_paths.dart';
-import 'package:ecommerce_app/features/auth/ui/controller/main_bottom_nav_controller.dart';
+import 'package:ecommerce_app/features/Product/ui/screans/prodcut_list_screens.dart';
+import 'package:ecommerce_app/features/Product/ui/screans/product_details.dart';
+import 'package:ecommerce_app/features/commons/ui/controller/main_bottom_nav_controller.dart';
 import 'package:ecommerce_app/features/auth/ui/widgets/Circular_App_Button.dart';
 import 'package:ecommerce_app/features/auth/ui/widgets/Carousel_Slider.dart';
 import 'package:flutter/material.dart';
@@ -139,76 +141,85 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 140,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: AppColor.themeColor.withOpacity(.01),
-            offset: Offset(0.0, 0.1),
-            blurRadius: 7,
-          ),
-        ],
-      ),
-      // height: 200,
-      child: Column(
-        children: [
-          Container(
-            height: 140,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(16),
-                topRight: Radius.circular(16),
+    return GestureDetector(
+      onTap: () {
+        Navigator.pushNamed(
+          context,
+          ProductDetailsScreen.name,
+          arguments: 'abcse',
+        );
+      },
+      child: Container(
+        width: 140,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(16),
+          boxShadow: [
+            BoxShadow(
+              color: AppColor.themeColor.withOpacity(.01),
+              offset: Offset(0.0, 0.1),
+              blurRadius: 7,
+            ),
+          ],
+        ),
+        // height: 200,
+        child: Column(
+          children: [
+            Container(
+              height: 140,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(16),
+                  topRight: Radius.circular(16),
+                ),
+                color: AppColor.themeColor.withOpacity(.1),
               ),
-              color: AppColor.themeColor.withOpacity(.1),
-            ),
-            padding: EdgeInsets.all(16),
-            child: Image.asset(
-              AssetPath.dummyNikeImage5,
-              height: 80,
-              fit: BoxFit.contain,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(2.0),
-            child: Text(
-              'New Year Special Shoe 30',
-              style: TextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: 12,
-                overflow: TextOverflow.ellipsis,
+              padding: EdgeInsets.all(16),
+              child: Image.asset(
+                AssetPath.dummyNikeImage5,
+                height: 80,
+                fit: BoxFit.contain,
               ),
             ),
-          ),
-          Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text('\$100', style: TextStyle(color: AppColor.themeColor)),
-                  Text('⭐'),
-                  Text('4.8', style: TextStyle(color: Colors.black45)),
-                  Padding(
-                    padding: const EdgeInsets.all(2.0),
-                    child: Card(
-                      color: AppColor.themeColor,
+            Padding(
+              padding: const EdgeInsets.all(2.0),
+              child: Text(
+                'New Year Special Shoe 30',
+                style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 12,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ),
+            Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('\$100', style: TextStyle(color: AppColor.themeColor)),
+                    Text('⭐'),
+                    Text('4.8', style: TextStyle(color: Colors.black45)),
+                    Padding(
+                      padding: const EdgeInsets.all(2.0),
+                      child: Card(
+                        color: AppColor.themeColor,
 
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadiusGeometry.circular(2),
-                      ),
-                      child: Icon(
-                        Icons.favorite_border_outlined,
-                        size: 18,
-                        color: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadiusGeometry.circular(2),
+                        ),
+                        child: Icon(
+                          Icons.favorite_border_outlined,
+                          size: 18,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ],
+                  ],
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -236,7 +247,13 @@ class CatagoryWiseProduct extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Navigator.pushNamed(
+          context,
+          ProductListScreen.name,
+          arguments: 'catagory',
+        );
+      },
       child: Column(
         children: [
           Container(
