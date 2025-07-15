@@ -4,12 +4,14 @@ import 'package:ecommerce_app/app/app_color.dart';
 import 'package:ecommerce_app/app/assets_paths.dart';
 import 'package:ecommerce_app/features/Product/ui/screans/prodcut_list_screens.dart';
 import 'package:ecommerce_app/features/Product/ui/screans/product_details.dart';
+import 'package:ecommerce_app/features/auth/ui/controller/slider_controller.dart';
+import 'package:ecommerce_app/features/auth/ui/screens/sign_up_screen.dart';
 import 'package:ecommerce_app/features/commons/ui/controller/main_bottom_nav_controller.dart';
 import 'package:ecommerce_app/features/auth/ui/widgets/Circular_App_Button.dart';
 import 'package:ecommerce_app/features/auth/ui/widgets/Carousel_Slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:get/instance_manager.dart';
+import 'package:get/get.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -45,7 +47,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               SizedBox(height: 10),
-              CarouselSliderWidget(),
+              GetBuilder<SliderController>(
+                builder: (controller) {
+                  if (controller.inProgress) {
+                    return CenteredCircularProgressIndicator();
+                  }
+                  return CarouselSliderWidget(slider: controller.slider,);
+                },
+              ),
               SizedBox(height: 10),
               CatagoriesSeeAll(
                 title: 'All Catagories',
@@ -97,6 +106,12 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    Get.find<SliderController>().getSlider();
   }
 }
 

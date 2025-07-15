@@ -1,6 +1,7 @@
 import 'package:ecommerce_app/features/Product/ui/screans/prodcut_list_screens.dart';
 import 'package:ecommerce_app/features/Product/ui/screans/product_details.dart';
 import 'package:ecommerce_app/features/auth/ui/screens/login_screen.dart';
+import 'package:ecommerce_app/features/auth/ui/screens/verify_otp_screen.dart';
 import 'package:ecommerce_app/features/commons/ui/screens/main_buttom_nav_screen.dart';
 import 'package:ecommerce_app/features/auth/ui/screens/sign_up_screen.dart';
 import 'package:ecommerce_app/features/auth/ui/screens/splash_screen.dart';
@@ -23,6 +24,9 @@ class AppRouters {
     } else if (settings.name == ProductDetailsScreen.name) {
       final String catagory = settings.arguments as String;
       screenWidget = ProductDetailsScreen(productid: catagory);
+    } else if (settings.name == VerifyOtpScreen.name) {
+      final String email = settings.arguments as String;
+      screenWidget = VerifyOtpScreen(emailAddress: email);
     }
 
     return MaterialPageRoute(

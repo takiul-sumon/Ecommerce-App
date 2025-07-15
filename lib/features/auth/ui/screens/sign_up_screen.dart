@@ -1,7 +1,12 @@
-import 'package:ecommerce_app/features/commons/ui/screens/main_buttom_nav_screen.dart';
+import 'package:bd_phone_validator/bd_phone_validator.dart';
+import 'package:ecommerce_app/features/auth/data/models/sign_up_request_model.dart';
+import 'package:ecommerce_app/features/auth/ui/controller/sign_up_controller.dart';
+import 'package:ecommerce_app/features/auth/ui/screens/verify_otp_screen.dart';
+import 'package:ecommerce_app/features/auth/ui/ui/widgets/sncak_bar_messenger.dart';
 import 'package:ecommerce_app/features/auth/ui/widgets/app_logo.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -12,16 +17,16 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-  TextEditingController emailTEController = TextEditingController();
+  final TextEditingController emailTEController = TextEditingController();
+  final TextEditingController firstNameTEController = TextEditingController();
+  final TextEditingController lastNameTEController = TextEditingController();
+  final TextEditingController mobileTEController = TextEditingController();
+  final TextEditingController cityNameTEController = TextEditingController();
+  final TextEditingController locationTEController = TextEditingController();
 
-  TextEditingController firstNameTEController = TextEditingController();
-  TextEditingController lastNameTEController = TextEditingController();
-  TextEditingController mobileTEController = TextEditingController();
-  TextEditingController cityNameTEController = TextEditingController();
-  TextEditingController locationTEController = TextEditingController();
-
-  TextEditingController passwordTEController = TextEditingController();
+  final TextEditingController passwordTEController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final SignUpController _signUpController = Get.find<SignUpController>();
 
   @override
   Widget build(BuildContext context) {
@@ -65,8 +70,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     TextFormField(
                       controller: firstNameTEController,
                       validator: (String? value) {
-                        String firstNameValue = value ?? '';
-                        if (firstNameValue.isEmpty) {
+                        if (value?.trim().isEmpty ?? true) {
                           return 'Enter a  First Name';
                         }
                         return null;
@@ -81,13 +85,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
                       decoration: InputDecoration(hintText: 'Last Name'),
                       textInputAction: TextInputAction.next,
+                      validator: (String? value) {
+                        if (value?.trim().isEmpty ?? true) {
+                          return 'Enter a  Last Name';
+                        }
+                        return null;
+                      },
                     ),
                     SizedBox(height: 5),
                     TextFormField(
                       controller: mobileTEController,
                       validator: (String? value) {
-                        String emailValue = value ?? '';
-                        if (EmailValidator.validate(emailValue) == false) {
+                        String mobileValue = value ?? '';
+                        if (BdPhoneValidator.validate(mobileValue) == false) {
                           return 'Enter a Valid Mobile';
                         }
                         return null;
@@ -99,8 +109,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     TextFormField(
                       controller: cityNameTEController,
                       validator: (String? value) {
-                        String cityValue = value ?? '';
-                        if (cityValue.isEmpty) {
+                        if (value?.trim().isEmpty == true) {
                           return 'Enter a Valid City';
                         }
                         return null;
@@ -114,9 +123,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       controller: locationTEController,
                       maxLines: 2,
                       validator: (String? value) {
-                        String passwordValue = value ?? '';
-                        if (passwordValue.length < 6) {
-                          return 'Enter a password length greater then 6';
+                        if (value?.trim().isEmpty == true) {
+                          return 'Enter a Valid Location';
                         }
                         return null;
                       },
@@ -127,9 +135,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     TextFormField(
                       controller: passwordTEController,
                       validator: (String? value) {
-                        String passwordValue = value ?? '';
-                        if (passwordValue.length < 6) {
-                          return 'Enter a password length greater then 6';
+                        if ((value?.length ?? 0) <= 6) {
+                          return 'Enter a password more than 6 letters';
                         }
                         return null;
                       },
@@ -137,14 +144,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       decoration: InputDecoration(hintText: 'Password'),
                     ),
                     SizedBox(height: 10),
-                    SizedBox(
-                      width: 330,
-                      child: ElevatedButton(
-                        onPressed: onTapLoginButton,
-                        style: Theme.of(context).elevatedButtonTheme.style,
-                        child: Text(
-                          'Sign up',
-                          style: TextStyle(color: Colors.white),
+                    GetBuilder<SignUpController>(
+                      builder: (_) => Visibility(
+                        visible: _signUpController.inProgress == false,
+                        replacement: CenteredCircularProgressIndicator(),
+                        child: ElevatedButton(
+                          onPressed: onTapLoginButton,
+                          style: Theme.of(context).elevatedButtonTheme.style,
+                          child: Text(
+                            'Sign up',
+                            style: TextStyle(color: Colors.white),
+                          ),
                         ),
                       ),
                     ),
@@ -159,14 +169,52 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
   }
 
-  onTapLoginButton() {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) {
-          return MainButtomNavScreen();
-        },
-      ),
-    );
-    // if (_formKey.currentState!.validate()) {}
+  Future<void> onTapLoginButton() async {
+    if (_formKey.currentState?.validate() ?? true) {
+      final SignUpRequestModel model = SignUpRequestModel(
+        email: emailTEController.text.trim(),
+        firstName: firstNameTEController.text.trim(),
+        lasttName: lastNameTEController.text.trim(),
+        city: cityNameTEController.text.trim(),
+        phone: mobileTEController.text.trim(),
+        password: passwordTEController.text,
+      );
+      final bool isSuccess = await _signUpController.signUp(model);
+      if (isSuccess) {
+        Navigator.pushNamed(
+          context,
+          VerifyOtpScreen.name,
+          arguments: emailTEController.text.trim(),
+        );
+        showSnackBarMessenger(context, _signUpController.message);
+      } else {
+        showSnackBarMessenger(
+          context,
+          _signUpController.errorMessage ?? 'An unknown error occurred',
+          true,
+        );
+      }
+    }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    firstNameTEController.dispose();
+    lastNameTEController.dispose();
+    emailTEController.dispose();
+    locationTEController.dispose();
+    passwordTEController.dispose();
+    mobileTEController.dispose();
+    cityNameTEController.dispose();
+  }
+}
+
+class CenteredCircularProgressIndicator extends StatelessWidget {
+  const CenteredCircularProgressIndicator({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(child: CircularProgressIndicator());
   }
 }
