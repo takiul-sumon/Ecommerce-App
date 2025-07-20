@@ -1,8 +1,6 @@
 import 'package:ecommerce_app/features/commons/ui/controller/main_bottom_nav_controller.dart';
-import 'package:ecommerce_app/features/home/ui/screans/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 class WishListScreen extends StatefulWidget {
   const WishListScreen({super.key});
@@ -39,7 +37,7 @@ class _WishListScreenState extends State<WishListScreen> {
               mainAxisSpacing: 10,
             ),
             itemBuilder: (context, index) {
-              return FittedBox(child: ProductCard());
+              // return FittedBox(child: ProductCard());
             },
           ),
         ),

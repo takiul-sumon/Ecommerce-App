@@ -1,6 +1,9 @@
+import 'package:ecommerce_app/features/auth/ui/controller/catagory_Controller.dart';
+import 'package:ecommerce_app/features/auth/ui/screens/sign_up_screen.dart';
 import 'package:ecommerce_app/features/commons/ui/controller/main_bottom_nav_controller.dart';
 import 'package:ecommerce_app/features/home/ui/screans/home_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get/instance_manager.dart';
 
 class ProductCatagoryScreen extends StatefulWidget {
@@ -11,6 +14,21 @@ class ProductCatagoryScreen extends StatefulWidget {
 }
 
 class _ProductCatagoryScreenState extends State<ProductCatagoryScreen> {
+  final ScrollController _scrollController = ScrollController();
+  final CatagoryListController _categoryListController =
+      Get.find<CatagoryListController>();
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(_loadMoreData);
+  }
+
+  void _loadMoreData() {
+    if (_scrollController.position.extentAfter < 300) {
+      _categoryListController.getCatagory();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return PopScope(
@@ -33,22 +51,44 @@ class _ProductCatagoryScreenState extends State<ProductCatagoryScreen> {
             ).textTheme.bodyLarge!.copyWith(color: Colors.black87),
           ),
         ),
-        body: GridView.builder(
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 4,
-            mainAxisSpacing: 8,
-            crossAxisSpacing: 2,
-          ),
-          itemBuilder: (context, index) {
-            return CatagoryWiseProduct(
-              icon: Icons.computer,
-              prodcutTitle: 'Electronics',
+        body: GetBuilder<CatagoryListController>(
+          builder: (controller) {
+            if (controller.initialLoadingInProcess) {
+              return CenteredCircularProgressIndicator();
+            }
+            return Column(
+              children: [
+                Expanded(
+                  child: GridView.builder(
+                    controller: _scrollController,
+                    itemCount: controller.catagoryList.length,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 4,
+                      mainAxisSpacing: 8,
+                      crossAxisSpacing: 2,
+                    ),
+                    itemBuilder: (context, index) {
+                      return FittedBox(
+                        child: CatagoryWiseProduct(
+                          catagory: controller.catagoryList[index],
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                Visibility(
+                  visible: controller.inProgress,
+                  child: LinearProgressIndicator(),
+                ),
+              ],
             );
           },
         ),
       ),
     );
   }
+
+
 }
 
 // Get.find<MainBottomNavScreenController>().backToHome();

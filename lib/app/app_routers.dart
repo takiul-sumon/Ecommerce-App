@@ -1,5 +1,6 @@
 import 'package:ecommerce_app/features/Product/ui/screans/prodcut_list_screens.dart';
 import 'package:ecommerce_app/features/Product/ui/screans/product_details.dart';
+import 'package:ecommerce_app/features/auth/data/models/catagory_list_model.dart';
 import 'package:ecommerce_app/features/auth/ui/screens/login_screen.dart';
 import 'package:ecommerce_app/features/auth/ui/screens/verify_otp_screen.dart';
 import 'package:ecommerce_app/features/commons/ui/screens/main_buttom_nav_screen.dart';
@@ -19,7 +20,7 @@ class AppRouters {
     } else if (settings.name == MainButtomNavScreen.name) {
       screenWidget = MainButtomNavScreen();
     } else if (settings.name == ProductListScreen.name) {
-      final String catagory = settings.arguments as String;
+      final CatagoryListModel catagory = settings.arguments as CatagoryListModel;
       screenWidget = ProductListScreen(catagory: catagory);
     } else if (settings.name == ProductDetailsScreen.name) {
       final String catagory = settings.arguments as String;

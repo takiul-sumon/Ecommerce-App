@@ -1,0 +1,38 @@
+import 'package:ecommerce_app/app/urls.dart';
+import 'package:ecommerce_app/core/services/network/network_client.dart';
+import 'package:ecommerce_app/features/commons/ui/model/product_model.dart';
+import 'package:get/get.dart';
+
+class SpecialProductListController extends GetxController {
+  bool _inProcess = false;
+  String? _errorMessage;
+  late String _message;
+  bool get inProgress => _inProcess;
+  String? get errorMessage => _errorMessage;
+  String get message => _message;
+  List<ProductModel> popularProduct = [];
+  List<ProductModel> get slider => popularProduct;
+  Future<bool> getSpecialProduct() async {
+    bool isSuccess = false;
+    _inProcess = true;
+    update();
+    final NetworkResponse response = await Get.find<NetworkClient>().getRequest(
+      Urls.popularListByTagurl('special'),
+    );
+    if (response.isSuccess) {
+      List<ProductModel> list = [];
+      for (Map<String, dynamic> slider
+          in response.responseData!['data']['results']) {
+        list.add(ProductModel.fromJson(slider));
+      }
+      popularProduct = list;
+      isSuccess = true;
+      _errorMessage = null;
+    } else {
+      _errorMessage = response.errorMessage!;
+    }
+    _inProcess = false;
+    update();
+    return isSuccess;
+  }
+}

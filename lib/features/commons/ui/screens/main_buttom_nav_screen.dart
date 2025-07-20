@@ -1,10 +1,14 @@
 import 'package:ecommerce_app/features/Product/ui/screans/cart_screen.dart';
 import 'package:ecommerce_app/features/Wishlist/ui/wishlist_screen.dart';
+import 'package:ecommerce_app/features/auth/ui/controller/catagory_Controller.dart';
+import 'package:ecommerce_app/features/auth/ui/controller/popular_product_list_controller.dart';
+import 'package:ecommerce_app/features/auth/ui/controller/slider_controller.dart';
+import 'package:ecommerce_app/features/auth/ui/controller/special_product_list_controller.dart';
 import 'package:ecommerce_app/features/commons/ui/controller/main_bottom_nav_controller.dart';
 import 'package:ecommerce_app/features/home/ui/screans/home_screen.dart';
 import 'package:ecommerce_app/features/auth/ui/screens/product_catagory_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:get/get.dart';
 
 class MainButtomNavScreen extends StatefulWidget {
   const MainButtomNavScreen({super.key});
@@ -21,6 +25,15 @@ class _MainButtomNavScreenState extends State<MainButtomNavScreen> {
     CartScreen(),
     WishListScreen(),
   ];
+  @override
+  void initState() {
+    super.initState();
+    Get.find<SliderController>().getSlider();
+    Get.find<CatagoryListController>().getCatagory();
+    Get.find<SpecialProductListController>().getSpecialProduct();
+    Get.find<PopularProductListController>().getPopularProduct();
+  }
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<MainBottomNavScreenController>(

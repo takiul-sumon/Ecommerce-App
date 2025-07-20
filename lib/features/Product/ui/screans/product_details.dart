@@ -1,8 +1,9 @@
 import 'package:ecommerce_app/app/app_color.dart';
 import 'package:ecommerce_app/features/Product/ui/Widget/inc_dec_button.dart';
 import 'package:ecommerce_app/features/Product/ui/Widget/product_image_slider.dart';
-import 'package:ecommerce_app/features/home/ui/screans/home_screen.dart';
+import 'package:ecommerce_app/features/auth/ui/controller/product_details_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
   const ProductDetailsScreen({super.key, required this.productid});
@@ -15,131 +16,137 @@ class ProductDetailsScreen extends StatefulWidget {
 }
 
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
+  final ProductDetailsController _productDetailsController = Get.put(
+    ProductDetailsController(),
+  );
   @override
   void initState() {
     super.initState();
-    ProductCard();
+    _productDetailsController.getProductDetails(widget.productid);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Product Details')),
-      body: Column(
-        children: [
-          ProductImageSlider(),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      body: GetBuilder<ProductDetailsController>(
+        builder: (controller) => Column(
+          children: [
+            ProductImageSlider(image: controller.productDetails.photos,),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
 
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  // crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Column(
-                      // mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Happy New Year Speical Deal \nSave 30%',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w600,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    // crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Column(
+                        // mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                            controller.productDetails.title,
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ],
+                      ),
+                      IncDecButton(),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text('⭐'),
+                      Text('4.8', style: TextStyle(color: Colors.black45)),
+                      TextButton(
+                        onPressed: () {},
+                        style: ButtonStyle(
+                          padding: WidgetStateProperty.all(EdgeInsets.zero),
+                        ),
+                        child: Text('Reviews'),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(2.0),
+                        child: Card(
+                          color: AppColor.themeColor,
+
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadiusGeometry.circular(2),
+                          ),
+                          child: Icon(
+                            Icons.favorite_border_outlined,
+                            size: 18,
+                            color: Colors.white,
                           ),
                         ),
-                      ],
-                    ),
-                    IncDecButton(),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text('⭐'),
-                    Text('4.8', style: TextStyle(color: Colors.black45)),
-                    TextButton(
-                      onPressed: () {},
-                      style: ButtonStyle(
-                        padding: WidgetStateProperty.all(EdgeInsets.zero),
                       ),
-                      child: Text('Reviews'),
+                    ],
+                  ),
+                  Text(
+                    'Color',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(2.0),
-                      child: Card(
-                        color: AppColor.themeColor,
-
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadiusGeometry.circular(2),
-                        ),
-                        child: Icon(
-                          Icons.favorite_border_outlined,
-                          size: 18,
-                          color: Colors.white,
+                  ),
+                  SizePicker(
+                    colors: controller.productDetails.colors,
+                    onSelected: (p0) {},
+                  ),
+                  Text(
+                    'Size',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
+                  SizePicker(
+                    colors: controller.productDetails.sizes,
+                    onSelected: (String value) {},
+                  ),
+                  Text(
+                    'Description',
+                    style: Theme.of(
+                      context,
+                    ).textTheme.bodyLarge!.copyWith(color: Colors.black),
+                  ),
+                  SizedBox(
+                    height: 250,
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.vertical,
+                      child: Text(
+                        controller.productDetails.description,
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
                         ),
                       ),
                     ),
-                  ],
-                ),
-                Text(
-                  'Color',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
                   ),
-                ),
-                Row(
-                  spacing: 15,
-                  children: [
-                    OnTapColorPicker(color: Colors.black, ontap: () {}),
-                    OnTapColorPicker(
-                      color: Colors.cyan,
-                      ontap: () {},
-                      icon: Icons.check,
-                    ),
-                    OnTapColorPicker(color: Colors.grey.shade500, ontap: () {}),
-                    OnTapColorPicker(color: Colors.brown, ontap: () {}),
-                    OnTapColorPicker(color: Colors.black54, ontap: () {}),
-                  ],
-                ),
-                Text(
-                  'Size',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  ),
-                ),
-                SizePicker(
-                  colors: ['L', 'M', 'XL', 'XXl'],
-                  onSelected: (String value) {},
-                ),
-                Text(
-                  'Description',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  ),
-                ),
+                  SizedBox(height: 15),
 
-                Text(
-                  'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, ',
-                  style: TextStyle(fontSize: 14),
-                ),
-                buildPriceAndAddToCart(),
-              ],
+                  buildPriceAndAddToCart(
+                    controller.productDetails.currentPrice,
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
 
-  Widget buildPriceAndAddToCart() {
+  Widget buildPriceAndAddToCart(int price) {
     return Container(
       height: 100,
       decoration: BoxDecoration(
@@ -162,7 +169,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
                 Text(
-                  '\$100',
+                  '\$$price',
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
