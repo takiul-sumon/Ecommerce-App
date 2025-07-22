@@ -1,10 +1,10 @@
-import 'package:ecommerce_app/features/auth/data/models/catagory_list_model.dart';
-import 'package:ecommerce_app/features/auth/ui/screens/sign_up_screen.dart';
-import 'package:ecommerce_app/features/commons/ui/controller/main_bottom_nav_controller.dart';
-import 'package:ecommerce_app/features/commons/ui/controller/product_list_controller.dart';
+import 'package:ecommerce_app/features/commons/model/catagory_list_model.dart';
+import 'package:ecommerce_app/features/commons/ui/controllers/main_bottom_nav_controller.dart';
+import 'package:ecommerce_app/features/Product/controller/product_list_controller.dart';
 import 'package:ecommerce_app/features/commons/widgets/product_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ecommerce_app/core/ui/widgets/centered_circular_progress_indicator.dart';
 
 class ProductListScreen extends StatefulWidget {
   const ProductListScreen({super.key, required this.catagory});
@@ -49,7 +49,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
           leading: IconButton(
             icon: Icon(Icons.arrow_back),
             onPressed: () {
-              Navigator.pop(context); 
+              Navigator.pop(context);
             },
           ),
         ),

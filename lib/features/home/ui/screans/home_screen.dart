@@ -1,8 +1,10 @@
-import 'package:ecommerce_app/features/auth/data/models/catagory_list_model.dart';
+import 'package:ecommerce_app/core/ui/widgets/centered_circular_progress_indicator.dart';
+import 'package:ecommerce_app/features/commons/model/catagory_list_model.dart';
 import 'package:ecommerce_app/features/auth/ui/controller/new_product_list_controller.dart';
 import 'package:ecommerce_app/features/auth/ui/controller/popular_product_list_controller.dart';
 import 'package:ecommerce_app/features/auth/ui/controller/special_product_list_controller.dart';
 import 'package:ecommerce_app/features/commons/widgets/product_card.dart';
+import 'package:ecommerce_app/features/commons/widgets/product_catagory.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -10,12 +12,11 @@ import 'package:get/get.dart';
 import 'package:ecommerce_app/app/app_color.dart';
 import 'package:ecommerce_app/app/assets_paths.dart';
 import 'package:ecommerce_app/features/Product/ui/screans/prodcut_list_screens.dart';
-import 'package:ecommerce_app/features/auth/ui/controller/catagory_Controller.dart';
+import 'package:ecommerce_app/features/commons/controller/catagory_Controller.dart';
 import 'package:ecommerce_app/features/auth/ui/controller/slider_controller.dart';
-import 'package:ecommerce_app/features/auth/ui/screens/sign_up_screen.dart';
 import 'package:ecommerce_app/features/auth/ui/widgets/Carousel_Slider.dart';
 import 'package:ecommerce_app/features/auth/ui/widgets/Circular_App_Button.dart';
-import 'package:ecommerce_app/features/commons/ui/controller/main_bottom_nav_controller.dart';
+import 'package:ecommerce_app/features/commons/ui/controllers/main_bottom_nav_controller.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -184,50 +185,6 @@ AppBar buildAppBar() {
   );
 }
 
-class CatagoryWiseProduct extends StatelessWidget {
-  const CatagoryWiseProduct({super.key, required this.catagory});
-
-  final CatagoryListModel catagory;
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.pushNamed(
-          context,
-          ProductListScreen.name,
-          arguments: catagory,
-        );
-      },
-      child: Column(
-        children: [
-          Container(
-            height: 70,
-            width: 70,
-            decoration: BoxDecoration(
-              color: AppColor.themeColor.withValues(alpha: .1),
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: Image.network(catagory.icon),
-          ),
-          SizedBox(height: 5),
-          Text(
-            onTaptitleSmaller(catagory.title),
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              color: AppColor.themeColor.withValues(alpha: .7),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  String onTaptitleSmaller(String title) {
-    title.length > 9 ? title = title.substring(0, 9) : title;
-    return title;
-  }
-}
 
 class CatagoriesSeeAll extends StatelessWidget {
   const CatagoriesSeeAll({

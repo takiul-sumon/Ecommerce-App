@@ -1,6 +1,6 @@
 import 'package:ecommerce_app/features/auth/data/models/verify_otp_model.dart';
 import 'package:ecommerce_app/features/auth/ui/controller/verify_otp_controller.dart';
-import 'package:ecommerce_app/features/auth/ui/ui/widgets/sncak_bar_messenger.dart';
+import 'package:ecommerce_app/core/ui/sncak_bar_messenger.dart';
 import 'package:ecommerce_app/features/auth/ui/widgets/app_logo.dart';
 import 'package:ecommerce_app/features/commons/ui/screens/main_buttom_nav_screen.dart';
 import 'package:flutter/material.dart';

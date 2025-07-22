@@ -1,7 +1,10 @@
 import 'package:ecommerce_app/app/app_color.dart';
-import 'package:ecommerce_app/app/assets_paths.dart';
 import 'package:ecommerce_app/features/Product/ui/Widget/inc_dec_button.dart';
+import 'package:ecommerce_app/features/cart/data/models/cart_item_model.dart';
+import 'package:ecommerce_app/features/cart/ui/controllers/cart_item_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:ecommerce_app/core/ui/widgets/centered_circular_progress_indicator.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
@@ -11,6 +14,16 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
+  final CartListController _cartListController = Get.find<CartListController>();
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _cartListController.getCartItemList();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,18 +31,32 @@ class _CartScreenState extends State<CartScreen> {
         title: Text('Cart', style: TextStyle(fontWeight: FontWeight.bold)),
         centerTitle: true,
       ),
-      body: Column(
-        children: [
-          Expanded(
-            child: ListView.builder(
-              itemCount: 6,
-              itemBuilder: (context, index) {
-                return ProductDetailsForCheckOut();
-              },
-            ),
-          ),
-          buildPriceAndAddToCart(),
-        ],
+      body: GetBuilder(
+        init: _cartListController,
+        builder: (_) {
+          if (_cartListController.inProgress) {
+            return const CenteredCircularProgressIndicator();
+          }
+          if (_cartListController.errorMessage != null) {
+            return Center(child: Text(_cartListController.errorMessage!));
+          }
+          return Column(
+            children: [
+              SizedBox(
+                height: 600,
+                child: ListView.builder(
+                  itemCount: _cartListController.cartItemList.length,
+                  itemBuilder: (context, index) {
+                    return ProductDetailsForCheckOut(
+                      cartItemModel: _cartListController.cartItemList[index],
+                    );
+                  },
+                ),
+              ),
+              buildPriceAndAddToCart(),
+            ],
+          );
+        },
       ),
     );
   }
@@ -57,7 +84,7 @@ class _CartScreenState extends State<CartScreen> {
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
                 Text(
-                  '\$100',
+                  _cartListController.totalPrice.toString(),
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
@@ -83,8 +110,8 @@ class _CartScreenState extends State<CartScreen> {
 }
 
 class ProductDetailsForCheckOut extends StatelessWidget {
-  const ProductDetailsForCheckOut({super.key});
-
+  const ProductDetailsForCheckOut({super.key, required this.cartItemModel});
+  final CartItemModel cartItemModel;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -100,7 +127,13 @@ class ProductDetailsForCheckOut extends StatelessWidget {
                 width: 100,
                 height: 100,
                 padding: EdgeInsets.all(8),
-                child: Image.asset(AssetPath.dummyNikeImage5),
+                child: Image.network(
+                  cartItemModel.productModel.photos.first,
+                  errorBuilder: (_, __, ___) {
+                    return Center(child: Icon(Icons.error_outline));
+                  },
+                  fit: BoxFit.scaleDown,
+                ),
               ),
               Expanded(
                 child: Column(
@@ -121,7 +154,7 @@ class ProductDetailsForCheckOut extends StatelessWidget {
                     SizedBox(height: 8),
 
                     Text(
-                      '\$100',
+                      cartItemModel.productModel.currentPrice.toString(),
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: AppColor.themeColor,

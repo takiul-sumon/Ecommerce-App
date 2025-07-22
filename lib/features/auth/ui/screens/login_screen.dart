@@ -1,7 +1,8 @@
+import 'package:ecommerce_app/core/ui/widgets/centered_circular_progress_indicator.dart';
 import 'package:ecommerce_app/features/auth/data/models/login_model.dart';
 import 'package:ecommerce_app/features/auth/ui/controller/login_controller.dart';
 import 'package:ecommerce_app/features/auth/ui/screens/sign_up_screen.dart';
-import 'package:ecommerce_app/features/auth/ui/ui/widgets/sncak_bar_messenger.dart';
+import 'package:ecommerce_app/core/ui/sncak_bar_messenger.dart';
 import 'package:ecommerce_app/features/auth/ui/widgets/app_logo.dart';
 import 'package:ecommerce_app/features/commons/ui/screens/main_buttom_nav_screen.dart';
 import 'package:email_validator/email_validator.dart';
@@ -21,6 +22,9 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController passwordTEController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final LoginController _loginController = Get.find<LoginController>();
+  onTapSignUpButton() {
+    Navigator.pushNamed(context, SignUpScreen.name);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -90,7 +94,16 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                   SizedBox(height: 10),
-                  // or any value
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text('Don\'t have an account?'),
+                      TextButton(
+                        onPressed: onTapSignUpButton,
+                        child: Text('Sign Up'),
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),

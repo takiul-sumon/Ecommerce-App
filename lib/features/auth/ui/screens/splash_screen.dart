@@ -1,5 +1,5 @@
-import 'package:ecommerce_app/features/auth/ui/screens/login_screen.dart';
 import 'package:ecommerce_app/features/auth/ui/widgets/app_logo.dart';
+import 'package:ecommerce_app/features/commons/ui/screens/main_buttom_nav_screen.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -15,12 +15,13 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     _moveToNextScreen();
+    // Get.find<AuthController>().isUserLoggedIn();
   }
 
   Future<void> _moveToNextScreen() async {
     await Future.delayed(Duration(seconds: 2));
 
-    Navigator.pushReplacementNamed(context, LoginScreen.name);
+    Navigator.pushReplacementNamed(context, MainButtomNavScreen.name);
   }
 
   @override

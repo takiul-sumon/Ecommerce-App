@@ -1,6 +1,6 @@
 import 'package:ecommerce_app/app/urls.dart';
 import 'package:ecommerce_app/core/services/network/network_client.dart';
-import 'package:ecommerce_app/features/auth/data/models/catagory_list_model.dart';
+import 'package:ecommerce_app/features/commons/model/catagory_list_model.dart';
 import 'package:get/get.dart';
 
 class CatagoryListController extends GetxController {

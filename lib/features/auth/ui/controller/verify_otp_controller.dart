@@ -1,8 +1,8 @@
 import 'package:ecommerce_app/app/urls.dart';
 import 'package:ecommerce_app/core/services/network/network_client.dart';
-import 'package:ecommerce_app/features/auth/data/models/user_model.dart';
+import 'package:ecommerce_app/features/commons/model/user_model.dart';
 import 'package:ecommerce_app/features/auth/data/models/verify_otp_model.dart';
-import 'package:ecommerce_app/features/auth/ui/controller/auth_controller.dart';
+import 'package:ecommerce_app/features/commons/controller/auth_controller.dart';
 import 'package:get/get.dart';
 
 class VerifyOtpController extends GetxController {

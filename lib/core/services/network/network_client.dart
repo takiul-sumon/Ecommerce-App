@@ -16,7 +16,6 @@ class NetworkClient {
   Future<NetworkResponse> getRequest(String url) async {
     try {
       Uri uri = Uri.parse(url);
-      // Map<String, String> headers = {'content-type': 'application/json'};
       _logRequest(url, headers: commonHeaders());
 
       final Response response = await get(uri, headers: commonHeaders());

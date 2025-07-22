@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:ecommerce_app/app/app.dart';
-import 'package:ecommerce_app/features/commons/ui/controller/main_bottom_nav_controller.dart';
+import 'package:ecommerce_app/features/commons/ui/controllers/main_bottom_nav_controller.dart';
 import 'package:ecommerce_app/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';

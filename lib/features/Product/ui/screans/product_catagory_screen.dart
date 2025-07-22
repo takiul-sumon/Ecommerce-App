@@ -1,10 +1,10 @@
-import 'package:ecommerce_app/features/auth/ui/controller/catagory_Controller.dart';
-import 'package:ecommerce_app/features/auth/ui/screens/sign_up_screen.dart';
-import 'package:ecommerce_app/features/commons/ui/controller/main_bottom_nav_controller.dart';
-import 'package:ecommerce_app/features/home/ui/screans/home_screen.dart';
+import 'package:ecommerce_app/features/commons/controller/catagory_Controller.dart';
+import 'package:ecommerce_app/features/commons/ui/controllers/main_bottom_nav_controller.dart';
+import 'package:ecommerce_app/features/commons/widgets/product_catagory.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get/instance_manager.dart';
+import 'package:ecommerce_app/core/ui/widgets/centered_circular_progress_indicator.dart';
 
 class ProductCatagoryScreen extends StatefulWidget {
   const ProductCatagoryScreen({super.key});
@@ -87,8 +87,6 @@ class _ProductCatagoryScreenState extends State<ProductCatagoryScreen> {
       ),
     );
   }
-
-
 }
 
 // Get.find<MainBottomNavScreenController>().backToHome();

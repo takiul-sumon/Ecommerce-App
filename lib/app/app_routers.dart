@@ -1,6 +1,6 @@
 import 'package:ecommerce_app/features/Product/ui/screans/prodcut_list_screens.dart';
-import 'package:ecommerce_app/features/Product/ui/screans/product_details.dart';
-import 'package:ecommerce_app/features/auth/data/models/catagory_list_model.dart';
+import 'package:ecommerce_app/features/Product/ui/screans/product_details_screen.dart';
+import 'package:ecommerce_app/features/commons/model/catagory_list_model.dart';
 import 'package:ecommerce_app/features/auth/ui/screens/login_screen.dart';
 import 'package:ecommerce_app/features/auth/ui/screens/verify_otp_screen.dart';
 import 'package:ecommerce_app/features/commons/ui/screens/main_buttom_nav_screen.dart';

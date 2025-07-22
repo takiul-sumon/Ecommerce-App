@@ -1,7 +1,7 @@
 import 'package:ecommerce_app/app/app_color.dart';
 import 'package:ecommerce_app/app/assets_paths.dart';
-import 'package:ecommerce_app/features/Product/ui/screans/product_details.dart';
-import 'package:ecommerce_app/features/commons/ui/model/product_model.dart';
+import 'package:ecommerce_app/features/Product/ui/screans/product_details_screen.dart';
+import 'package:ecommerce_app/features/commons/model/product_model.dart';
 import 'package:flutter/material.dart';
 
 class ProductCard extends StatelessWidget {
@@ -42,14 +42,26 @@ class ProductCard extends StatelessWidget {
                 color: AppColor.themeColor.withOpacity(.1),
               ),
               padding: EdgeInsets.all(16),
-              child: Image.network(
-                productModel.photos.first,
-                fit: BoxFit.contain,
-                height: 80,
-                errorBuilder: (context, error, stackTrace) {
-                  return Image.asset(AssetPath.appLogo);
-                },
-              ),
+              child:
+                  productModel.photos.isNotEmpty &&
+                      productModel.photos.first.isNotEmpty
+                  ? Image.network(
+                      productModel.photos.first,
+                      fit: BoxFit.contain,
+                      height: 80,
+                      errorBuilder: (context, error, stackTrace) {
+                        return Image.asset(
+                          AssetPath.appLogo,
+                          height: 80,
+                          fit: BoxFit.contain,
+                        );
+                      },
+                    )
+                  : Image.asset(
+                      AssetPath.appLogo,
+                      height: 80,
+                      fit: BoxFit.contain,
+                    ),
             ),
             Padding(
               padding: const EdgeInsets.all(2.0),

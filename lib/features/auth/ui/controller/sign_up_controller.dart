@@ -1,6 +1,8 @@
 import 'package:ecommerce_app/app/urls.dart';
 import 'package:ecommerce_app/core/services/network/network_client.dart';
 import 'package:ecommerce_app/features/auth/data/models/sign_up_request_model.dart';
+import 'package:ecommerce_app/features/commons/model/user_model.dart';
+import 'package:ecommerce_app/features/commons/controller/auth_controller.dart';
 import 'package:get/get.dart';
 
 class SignUpController extends GetxController {
@@ -18,6 +20,10 @@ class SignUpController extends GetxController {
     final NetworkResponse response = await Get.find<NetworkClient>()
         .postRequest(Urls.signUpUrl, body: model.toJson());
     if (response.isSuccess) {
+      await Get.find<AuthController>().saveUserData(
+        response.responseData!['data']['token'],
+        UserModel.fromJson(response.responseData!['data']['user']),
+      );
       _message = response.responseData!['msg'];
       isSuccess = true;
       _errorMessage = null;
@@ -28,6 +34,4 @@ class SignUpController extends GetxController {
     update();
     return isSuccess;
   }
-
-
 }
