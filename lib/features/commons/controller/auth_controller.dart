@@ -52,11 +52,11 @@ class AuthController extends GetxController {
     return false;
   }
 
-  Future<void> clearUserData() async {
-    final SharedPreferences sharedPreferences =
-        await SharedPreferences.getInstance();
-    await sharedPreferences.clear();
-    accessToken = null;
-    userModel = null;
-  }
+  // Future<void> clearUserData() async {
+  //   final SharedPreferences sharedPreferences =
+  //       await SharedPreferences.getInstance();
+  //   await sharedPreferences.clear();
+  //   accessToken = null;
+  //   userModel = null;
+  // }
 }

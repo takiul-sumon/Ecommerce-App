@@ -12,7 +12,6 @@ import 'package:ecommerce_app/features/auth/ui/controller/slider_controller.dart
 import 'package:ecommerce_app/features/auth/ui/controller/special_product_list_controller.dart';
 import 'package:ecommerce_app/features/auth/ui/controller/verify_otp_controller.dart';
 import 'package:ecommerce_app/features/Wishlist/controller/wish_list_controller.dart';
-import 'package:ecommerce_app/features/auth/ui/screens/login_screen.dart';
 import 'package:ecommerce_app/features/commons/ui/controllers/main_bottom_nav_controller.dart';
 import 'package:ecommerce_app/features/Product/controller/product_list_controller.dart';
 import 'package:get/get.dart';
@@ -30,8 +29,8 @@ class ControllerBinder extends Bindings {
     Get.put(
       NetworkClient(
         onUnAthorized: () async {
-          await authController.clearUserData();
-          Get.offAll(() => LoginScreen());
+          // await authController.clearUserData();
+          // Get.offAll(() => LoginScreen());
         },
         commonHeaders: () {
           return {

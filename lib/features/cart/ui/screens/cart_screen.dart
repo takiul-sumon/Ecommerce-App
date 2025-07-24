@@ -3,6 +3,10 @@ import 'package:ecommerce_app/features/Product/ui/Widget/inc_dec_button.dart';
 import 'package:ecommerce_app/features/cart/data/models/cart_item_model.dart';
 import 'package:ecommerce_app/features/cart/ui/controllers/cart_item_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_sslcommerz/model/SSLCSdkType.dart';
+import 'package:flutter_sslcommerz/model/SSLCommerzInitialization.dart';
+import 'package:flutter_sslcommerz/model/SSLCurrencyType.dart';
+import 'package:flutter_sslcommerz/sslcommerz.dart';
 import 'package:get/get.dart';
 import 'package:ecommerce_app/core/ui/widgets/centered_circular_progress_indicator.dart';
 
@@ -61,6 +65,32 @@ class _CartScreenState extends State<CartScreen> {
     );
   }
 
+  payment() async {
+    Sslcommerz sslcommerz = Sslcommerz(
+      initializer: SSLCommerzInitialization(
+        multi_card_name: "visa,master,bkash",
+        currency: SSLCurrencyType.BDT,
+        product_category: "Food",
+        sdkType: SSLCSdkType.TESTBOX,
+        store_id: "ostad6824b3be647db",
+        store_passwd: "ostad6824b3be647db@ssl",
+        total_amount: _cartListController.totalPrice.toDouble(),
+        tran_id: "TxID00xxfhqgr3ui8576",
+      ),
+    );
+
+    final response = await sslcommerz.payNow();
+
+    if (response.status == 'VALID') {
+      print('payment success');
+    } else if (response.status == 'FAILED') {
+      print('Failed');
+    } else if (response.status == 'Closed') {
+      // This block is incomplete in the image; you can add a print or handler.
+      print('Payment Closed');
+    }
+  }
+
   Widget buildPriceAndAddToCart() {
     return Container(
       height: 100,
@@ -94,7 +124,7 @@ class _CartScreenState extends State<CartScreen> {
               ],
             ),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: payment,
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadiusGeometry.circular(8),
@@ -129,9 +159,9 @@ class ProductDetailsForCheckOut extends StatelessWidget {
                 padding: EdgeInsets.all(8),
                 child: Image.network(
                   cartItemModel.productModel.photos.first,
-                  errorBuilder: (_, __, ___) {
-                    return Center(child: Icon(Icons.error_outline));
-                  },
+                  // errorBuilder: (_, __, ___) {
+                  //   return Center(child: Icon(Icons.error_outline));
+                  // },
                   fit: BoxFit.scaleDown,
                 ),
               ),
@@ -139,11 +169,13 @@ class ProductDetailsForCheckOut extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'New Year Special Shoe',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w700,
+                    FittedBox(
+                      child: Text(
+                        cartItemModel.productModel.title,
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
                     ),
                     SizedBox(height: 8),

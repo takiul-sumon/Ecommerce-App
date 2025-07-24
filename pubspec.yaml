@@ -46,6 +46,7 @@ dependencies:
   bd_phone_validator: ^1.0.3
   pinput: ^5.0.1
   shared_preferences: ^2.5.3
+  flutter_sslcommerz: ^2.5.1
 
 dev_dependencies:
   flutter_test:
